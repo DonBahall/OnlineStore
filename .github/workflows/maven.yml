@@ -1,6 +1,6 @@
 name: OnlineStore
 
-on:[push]
+on: [push]
 
 jobs:
  build:
@@ -11,5 +11,5 @@ jobs:
      with:
       java-version: '18'
       distribution: 'adopt'
-    - name:Build with maven
+    - name: Build with maven
      run: mvn --batch-mode --update-snapshots verify
