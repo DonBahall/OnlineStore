@@ -13,7 +13,7 @@ jobs:
           java-version: '18'
           distribution: 'adopt'
       - name: Set up MySQL
-        uses: mysql/setup-mysql@v2
+        uses: actions/setup-mysql@v1
         with:
           mysql-version: '8.0'
           url: ${{ secrets.DB_URL }}
