@@ -1,4 +1,4 @@
-package com.example.onlinestore.Model.Configuration;
+package com.example.onlinestore.Configuration;
 
 
 import com.example.onlinestore.Repo.UserRepo;

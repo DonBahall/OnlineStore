@@ -1,4 +1,4 @@
-package com.example.onlinestore.Model.Configuration;
+package com.example.onlinestore.Configuration;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
