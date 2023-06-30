@@ -12,6 +12,13 @@ jobs:
         with:
           java-version: '18'
           distribution: 'adopt'
+      - name: Set up MySQL
+        uses: mysql/setup-mysql@v2
+        with:
+          mysql-version: '8.0'
+          url: ${{ secrets.DB_URL }}
+          password: ${{ secrets.DB_PASSWORD }}
+          username: ${{ secrets.DB_USERNAME }}
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
 
