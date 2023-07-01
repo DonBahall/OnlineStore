@@ -3,9 +3,9 @@ spring:
   application:
     name: OnlineStore
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/online-store}
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:mysql}
+    url: jdbc:mysql://localhost:3306/online-store
+    username: root
+    password: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
