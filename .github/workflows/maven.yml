@@ -18,11 +18,9 @@ jobs:
           java-version: '18'
           distribution: 'adopt'
       - name: Set up MySQL
-        with:
-          mysql-version: '8.0'
-          url: ${{ secrets.DB_URL }}
-          password: ${{ env.DB_PASSWORD }}
-          username: ${{ env.DB_USERNAME }}
+        run: |
+         sudo /etc/init.d/mysql start
+         mysql -e 'CREATE DATABASE ${{ env.MYSQL_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
 
