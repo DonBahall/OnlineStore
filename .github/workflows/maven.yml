@@ -4,8 +4,8 @@ on: [push]
 
 env:
   MYSQL_DATABASE: online-store
-  DB_USER: b08666f729d80e
-  DB_PASSWORD: cb12eebb
+  DB_USER: root
+  DB_PASSWORD: root
   
 jobs:
   build:
