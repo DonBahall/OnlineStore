@@ -3,7 +3,7 @@ name: OnlineStore
 on: [push]
 
 env:
-  MYSQL_DATABASE: online-store
+  MYSQL_DATABASE: online_store
   DB_USER: root
   DB_PASSWORD: root
   
