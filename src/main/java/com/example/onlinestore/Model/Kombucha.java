@@ -15,10 +15,11 @@ public class Kombucha {
     private Double price;
     private String img;
     private String category;
-    private Double displacement;
     @ManyToMany
     @JoinTable(name = "kombucha_ingredient",
             joinColumns = @JoinColumn(name = "kombucha_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredients;
+    private Double rating;
+
 }
