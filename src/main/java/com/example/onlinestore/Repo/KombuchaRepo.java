@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface KombuchaRepo extends JpaRepository<Kombucha,Long> {
-    List<Kombucha> findByNameOrCategory(String query, String q);
-    List<Kombucha> findByIngredientsNameContainingIgnoreCase(String query);
-    List<Kombucha> findByCategoryContainingIgnoreCase(String query);
+    List<Kombucha> findByNameOrCategory(String query, String category);
 }

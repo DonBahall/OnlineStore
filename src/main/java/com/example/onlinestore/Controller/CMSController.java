@@ -6,7 +6,6 @@ import com.example.onlinestore.Repo.IngredientRepo;
 import com.example.onlinestore.Repo.KombuchaRepo;
 import com.example.onlinestore.Request.IngredientRequest;
 import com.example.onlinestore.Request.KombuchaRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,20 +18,20 @@ import java.util.List;
 @PreAuthorize("hasAuthority('ADMIN')")
 @CrossOrigin
 public class CMSController {
-    @Autowired
-    IngredientRepo repo;
-    @Autowired
-    KombuchaRepo kombuchaRepo;
-    @GetMapping
-    public String getRequest(){
-        return "REGUEST";
+    private final IngredientRepo repo;
+    private final KombuchaRepo kombuchaRepo;
+
+    public CMSController(IngredientRepo repo, KombuchaRepo kombuchaRepo) {
+        this.repo = repo;
+        this.kombuchaRepo = kombuchaRepo;
     }
+
     @PostMapping("/ingredients")
     public ResponseEntity<String> addIngredient(@RequestBody IngredientRequest ingredientRequest) {
         Ingredient ingredient = new Ingredient();
         ingredient.setName(ingredientRequest.getName());
         repo.save(ingredient);
-        return ResponseEntity.ok("Ингредиент успешно добавлен.");
+        return ResponseEntity.ok("Ingredient added successfully.");
     }
     @PostMapping("/kombucha")
     public ResponseEntity<String> createKombucha(@RequestBody KombuchaRequest kombuchaRequest) {
@@ -47,7 +46,7 @@ public class CMSController {
             Ingredient ingredient = repo.findByName(ingredientName);
             if (ingredient == null) {
                 // Обработка ситуации, когда указанный ингредиент не существует
-                return ResponseEntity.badRequest().body("Ингредиент '" + ingredientName + "' не найден в справочнике.");
+                return ResponseEntity.badRequest().body("Ingredient '" + ingredientName + "' not found.");
             }
             ingredients.add(ingredient);
         }
@@ -56,6 +55,6 @@ public class CMSController {
 
         kombuchaRepo.save(kombucha);
 
-        return ResponseEntity.ok("Напиток комбуча успешно создан.");
+        return ResponseEntity.ok("kombucha successfully created.");
     }
 }

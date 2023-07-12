@@ -17,5 +17,7 @@ public class KombuchaRequest {
     private Double price;
     private String img;
     private String category;
+    private Double displacement;
     private List<String> ingredients;
+
 }
