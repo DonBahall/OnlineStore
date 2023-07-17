@@ -20,8 +20,14 @@ public class Kombucha {
             joinColumns = @JoinColumn(name = "kombucha_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredients;
+    @Enumerated(EnumType.STRING)
     private Packaging packaging;
-    private Double displacement;
+    private Double weight;
     private Double rating;
-
+    private Double count;
+    @ManyToMany
+    @JoinTable(name = "synonyms",
+            joinColumns = @JoinColumn(name = "kombucha_id"),
+            inverseJoinColumns = @JoinColumn(name = "synonym_id"))
+    private List<Synonym> synonyms;
 }

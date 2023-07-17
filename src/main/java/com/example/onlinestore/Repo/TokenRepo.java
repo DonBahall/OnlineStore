@@ -1,6 +1,6 @@
 package com.example.onlinestore.Repo;
 
-import com.example.onlinestore.Model.Token;
+import com.example.onlinestore.AuthModels.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

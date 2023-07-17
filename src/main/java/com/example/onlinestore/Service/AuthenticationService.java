@@ -1,9 +1,9 @@
 package com.example.onlinestore.Service;
 
 import com.example.onlinestore.Request.AuthenticationRequest;
-import com.example.onlinestore.Model.Token;
-import com.example.onlinestore.Model.TokenType;
-import com.example.onlinestore.Model.User;
+import com.example.onlinestore.AuthModels.Token;
+import com.example.onlinestore.AuthModels.TokenType;
+import com.example.onlinestore.AuthModels.User;
 import com.example.onlinestore.Repo.TokenRepo;
 import com.example.onlinestore.Repo.UserRepo;
 import lombok.RequiredArgsConstructor;

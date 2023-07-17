@@ -1,15 +1,14 @@
 package com.example.onlinestore.Controller;
 
 import com.example.onlinestore.Model.Kombucha;
+import com.example.onlinestore.Model.Synonym;
 import com.example.onlinestore.Repo.KombuchaRepo;
+import com.example.onlinestore.Repo.SynonymRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @RestController
@@ -17,7 +16,6 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 @CrossOrigin
 public class WebContoller {
-
     private final KombuchaRepo kombuchaRepository;
     @GetMapping("/category")
     public Set<String> getCategory(){
@@ -34,22 +32,25 @@ public class WebContoller {
     public List<Kombucha> getKombucha(){
         return kombuchaRepository.findAll();
     }
-    @GetMapping("/search")
-    public ResponseEntity<List<Kombucha>> searchKombucha(@RequestParam(value = "query") String query) {
-        // Проверяем, является ли запрос кириллическими символами
+
+    @PostMapping("/search")
+    public ResponseEntity<List<Kombucha>> searchKombucha(@RequestParam String query) {
         if (!isLatin(query)) {
             return ResponseEntity.badRequest().body(Collections.singletonList(new Kombucha()));
         }
-        // Удаляем лишние пробелы и проверяем, является ли запрос пустым
-        query = query.trim();
-        if (query.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList());
-        }
-        // Приводим запрос к нижнему регистру
-        query = query.toLowerCase();
 
-        // Выполняем поиск комбучи по названию, ингредиентам или категории
-        List<Kombucha> results = kombuchaRepository.findByNameOrCategory(query,query);
+        query = query.trim().toLowerCase();
+
+        // Выполняем поиск комбучи по части строки в названии
+        List<Kombucha> resultsByName = kombuchaRepository.findByNameContainingIgnoreCase(query);
+
+        // Выполняем поиск комбучи по части строки в полях связанных сущностей Synonym
+        List<Kombucha> resultsBySynonymName = kombuchaRepository.findBySynonymsNameContainingIgnoreCase(query);
+
+        // Объединяем результаты из обоих запросов (если нужно)
+        List<Kombucha> results = new ArrayList<>();
+        results.addAll(resultsByName);
+        results.addAll(resultsBySynonymName);
 
         return ResponseEntity.ok(results);
     }

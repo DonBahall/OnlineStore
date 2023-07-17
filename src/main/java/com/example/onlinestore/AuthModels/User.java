@@ -1,6 +1,8 @@
-package com.example.onlinestore.Model;
+package com.example.onlinestore.AuthModels;
 
 
+import com.example.onlinestore.AuthModels.Role;
+import com.example.onlinestore.AuthModels.Token;
 import jakarta.persistence.*;
 
 import java.util.Collection;
