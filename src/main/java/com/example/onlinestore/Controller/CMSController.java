@@ -6,7 +6,6 @@ import com.example.onlinestore.Model.Synonym;
 import com.example.onlinestore.Repo.IngredientRepo;
 import com.example.onlinestore.Repo.KombuchaRepo;
 import com.example.onlinestore.Repo.SynonymRepo;
-import com.example.onlinestore.Request.IngredientRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,18 +17,18 @@ import java.util.List;
 @PreAuthorize("hasAuthority('ADMIN')")
 @CrossOrigin
 public class CMSController {
-    private final IngredientRepo repo;
+    private final IngredientRepo ingredientRepo;
     private final KombuchaRepo kombuchaRepo;
     private final SynonymRepo synonymRepo;
 
-    public CMSController(IngredientRepo repo, KombuchaRepo kombuchaRepo, SynonymRepo synonymRepo) {
-        this.repo = repo;
+    public CMSController(IngredientRepo ingredientRepo, KombuchaRepo kombuchaRepo, SynonymRepo synonymRepo) {
+        this.ingredientRepo = ingredientRepo;
         this.kombuchaRepo = kombuchaRepo;
         this.synonymRepo = synonymRepo;
     }
     @GetMapping("/ingredients")
     public ResponseEntity<List<Ingredient>> getAllIngredients() {
-        List<Ingredient> ingredients = repo.findAll();
+        List<Ingredient> ingredients = ingredientRepo.findAll();
         return ResponseEntity.ok(ingredients);
     }
 
@@ -38,11 +37,14 @@ public class CMSController {
         List<Synonym> synonyms = synonymRepo.findAll();
         return ResponseEntity.ok(synonyms);
     }
+    @PostMapping("/synonyms")
+    public ResponseEntity<String> addSynonyms(@RequestBody Synonym synonym) {
+        synonymRepo.save(synonym);
+        return ResponseEntity.ok("Synonym added successfully.");
+    }
     @PostMapping("/ingredients")
-    public ResponseEntity<String> addIngredient(@RequestBody IngredientRequest ingredientRequest) {
-        Ingredient ingredient = new Ingredient();
-        ingredient.setName(ingredientRequest.getName());
-        repo.save(ingredient);
+    public ResponseEntity<String> addIngredient(@RequestBody Ingredient ingredient) {
+        ingredientRepo.save(ingredient);
         return ResponseEntity.ok("Ingredient added successfully.");
     }
     @PostMapping("/kombucha")
