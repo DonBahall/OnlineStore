@@ -1,9 +1,7 @@
 package com.example.onlinestore.Controller;
 
 import com.example.onlinestore.Model.Kombucha;
-import com.example.onlinestore.Model.Synonym;
 import com.example.onlinestore.Repo.KombuchaRepo;
-import com.example.onlinestore.Repo.SynonymRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

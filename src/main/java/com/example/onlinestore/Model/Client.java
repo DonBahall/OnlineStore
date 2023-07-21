@@ -10,7 +10,5 @@ public class Client {
     @Id
     private Long id;
     private String fio;
-    private String address;
-    private String email;
     private String phone;
 }
