@@ -31,6 +31,11 @@ public class WebContoller {
         return kombuchaRepository.findAll();
     }
 
+    @GetMapping("/kombucha/{id}")
+    public Kombucha getKombuchaById(@PathVariable Long id){
+        return kombuchaRepository.findById(id).orElse(null);
+    }
+
     @PostMapping("/search")
     public ResponseEntity<List<Kombucha>> searchKombucha(@RequestParam String query) {
         if (!isLatin(query)) {
