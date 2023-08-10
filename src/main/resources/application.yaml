@@ -3,9 +3,9 @@ spring:
   application:
     name: OnlineStore
   datasource:
-    url: jdbc:mysql://localhost:3306/online-store
+    url: jdbc:mysql://localhost:3306/online_store
     username: root
-    password: mysql
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
