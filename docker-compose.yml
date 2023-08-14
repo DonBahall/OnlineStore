@@ -1,23 +1,27 @@
+version: '3.0'
 services:
-  mysql:
-    image: mysql:latest
-    container_name: mysql_store
+  mysqldb:
+    image: mysql:8
     environment:
-       MYSQL_ROOT_PASSWORD: root
-       MYSQL_DATABASE: online_store
-       MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: online_store
     ports:
       - "3306:3306"
-
-  springboot-container:
+    networks:
+      - mynetwork
+    volumes:
+      - .m2:/root/.m2
+  app:
     build:
+      context: .
       dockerfile: Dockerfile
-    environment:
-      SPRING_DATASOURCE_PASSWORD: root
-      SPRING_DATASOURCE_USER: root
-      SPRING_DATASOURCE_NAME: online_store
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_GeoFinder:3306/online_store
+    depends_on:
+      - mysqldb
     ports:
       - "8080:8080"
-    links:
-      - mysql
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
