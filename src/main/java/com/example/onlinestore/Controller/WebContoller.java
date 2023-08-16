@@ -1,6 +1,8 @@
 package com.example.onlinestore.Controller;
 
+import com.example.onlinestore.Model.Ingredient;
 import com.example.onlinestore.Model.Kombucha;
+import com.example.onlinestore.Repo.IngredientRepo;
 import com.example.onlinestore.Repo.KombuchaRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 @CrossOrigin
 public class WebContoller {
+    private final IngredientRepo ingredientRepo;
     private final KombuchaRepo kombuchaRepository;
     @GetMapping("/category")
     public Set<String> getCategory(){
@@ -31,6 +34,11 @@ public class WebContoller {
         return kombuchaRepository.findAll();
     }
 
+    @GetMapping("/ingredients")
+    public ResponseEntity<List<Ingredient>> getAllIngredients() {
+        List<Ingredient> ingredients = ingredientRepo.findAll();
+        return ResponseEntity.ok(ingredients);
+    }
     @GetMapping("/kombucha/{id}")
     public Kombucha getKombuchaById(@PathVariable Long id){
         return kombuchaRepository.findById(id).orElse(null);

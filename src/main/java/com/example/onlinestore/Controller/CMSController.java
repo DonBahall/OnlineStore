@@ -26,11 +26,7 @@ public class CMSController {
         this.kombuchaRepo = kombuchaRepo;
         this.synonymRepo = synonymRepo;
     }
-    @GetMapping("/ingredients")
-    public ResponseEntity<List<Ingredient>> getAllIngredients() {
-        List<Ingredient> ingredients = ingredientRepo.findAll();
-        return ResponseEntity.ok(ingredients);
-    }
+
 
     @GetMapping("/synonyms")
     public ResponseEntity<List<Synonym>> getAllSynonyms() {
